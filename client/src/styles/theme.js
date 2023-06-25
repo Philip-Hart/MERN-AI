@@ -1,22 +1,18 @@
 import { createTheme } from '@mui/material/styles';
+import { green, purple } from '@mui/material/colors';
 
-let theme = createTheme({
+
+const theme = createTheme({
   palette: {
     primary: {
-      main: '#0052cc',
+      main: "#767296"
     },
     secondary: {
-      main: '#edf2ff',
-    },
-  },
-});
+      main: green[500]
+    }
+  }
+})
 
-theme = createTheme(theme, {
-  palette: {
-    info: {
-      main: theme.palette.secondary.main,
-    },
-  },
-});
+
 
 export default theme;

@@ -2,27 +2,26 @@ import React from "react";
 import clsx from "clsx";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
+import { Menu, MenuItem } from '@mui/material';
 
 
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import {FiMenu} from 'react-icons/fi';
+import {BiArrowBack} from 'react-icons/bi';
 import Toolbar from '@mui/material/Toolbar';
 
-import Button from '@mui/material/Button';
 import useStyles from "../styles/styles.js";
-// We import bootstrap to make our application look better.
-import "bootstrap/dist/css/bootstrap.css";
- 
+
 // We import NavLink to utilize the react router.
 import { NavLink } from "react-router-dom";
+import Theme from "../styles/theme.js";
 const drawerWidth = 240;
 // Here, we display our Navbar
-const navItems = ['Home', 'About', 'Contact'];
-export default function Navbar(props) {
-  const style = useStyles();
-  const [open, setOpen] = React.useState(true);
+
+export default function Navbar() {
+  const style = useStyles(Theme);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -30,31 +29,28 @@ export default function Navbar(props) {
     setOpen(false);
   };
 
-  const menu = () => (
+  const menuIcon = () => (
     <Box
-      sx={ 500 }
       role="presentation"
       onClick={handleDrawerClose}
       onKeyDown={handleDrawerClose}
     >
-      
-
-
     </Box>
   )
 
   return (
-    <div className={style.root}>
-      <CssBaseline />
+    <React.Fragment>
+
       <AppBar
-        position="absolute"
+        position="relative"
         className={clsx(style.root)}>
           <Toolbar className={style.drawerButton}>
-          <FiMenu color="primary"  onClick={handleDrawerOpen} />
+          <FiMenu size={30} color="primary" onClick={handleDrawerOpen} />
           </Toolbar>
 
 
       </AppBar>
+      {menuIcon()}
       <Drawer
         variant="persistent"
         anchor={"right"}
@@ -63,20 +59,18 @@ export default function Navbar(props) {
         }}
         open={open}
       >
-        {menu}
-        <div className={style.root}>
-          <IconButton onClick={handleDrawerClose}>
-            
-          </IconButton>
-        </div>
         
-        <div className={style.root}>
-          <p>drawer content</p>
+        <div className={style.drawerButtonExpanded}>
+          <BiArrowBack size={30} color={'#808080'} onClick={handleDrawerClose}/>
+        </div>
+
+        <div className={style.linkBox}>
+        <NavLink to={'/'} className={style.link} style={({ isActive }) => ({ borderBottom: isActive ? "3px solid rgb(212, 212, 212)" : 'none' })}>Home</NavLink>
+        <NavLink to={'/page'} className={style.link} style={({ isActive }) => ({ borderBottom: isActive ? "3px solid rgb(212, 212, 212)" : 'none' })}>Page</NavLink>
         </div>
       </Drawer>
 
-    </div>
+      </React.Fragment>
   )
 
 }
-
